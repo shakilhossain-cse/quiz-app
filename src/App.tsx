@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Loading from "./pages/Loading";
 
-function App() {
+const Home = lazy(() => import("./pages/Home"));
+const Exam = lazy(() => import("./pages/Exam"));
+const Result = lazy(() => import("./pages/Result"));
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Suspense fallback={<Loading/>}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HTMLOptionElement />} />
+          <Route path="/exam" element={<Exam />} />
+          <Route path="/result" element={<Result />} />
+        </Routes>
+      </BrowserRouter>
+   </Suspense>
     </div>
   );
-}
+};
 
 export default App;
